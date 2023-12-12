@@ -1,11 +1,16 @@
 import { Metadata } from 'next';
+import { DM_Serif_Text, Montserrat } from 'next/font/google';
+import { getServerSession } from 'next-auth';
 import * as React from 'react';
 
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
 
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { siteConfig } from '@/constant/config';
+import { PreloadProvider } from '@/context/PreloadContext';
+import { AuthProvider, QCProvider } from '@/provider';
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
@@ -47,15 +52,33 @@ export const metadata: Metadata = {
   //   },
   // ],
 };
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-montserrat',
+});
+const dmSerif = DM_Serif_Text({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-dm-serif',
+});
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+
   return (
-    <html>
-      <body>{children}</body>
+    <html className='bg-blue-primary'>
+      <body className={`${montserrat.variable} ${dmSerif.variable}`}>
+        <AuthProvider session={session}>
+          <QCProvider>
+            <PreloadProvider>{children}</PreloadProvider>
+          </QCProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

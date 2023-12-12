@@ -30,8 +30,10 @@ export default function HomePage() {
       <section className='bg-white'>
         <div className='layout relative flex min-h-screen flex-col items-center justify-center py-12 text-center'>
           <Logo className='w-16' />
-          <h1 className='mt-4'>Next.js + Tailwind CSS + TypeScript Starter</h1>
-          <p className='mt-2 text-sm text-gray-800'>
+          <h1 className='text-primary-blue mt-4'>
+            Next.js + Tailwind CSS + TypeScript Starter
+          </h1>
+          <p className='text-secondary-color font-montserrat mt-2 text-sm  '>
             A starter for Next.js, Tailwind CSS, and TypeScript with Absolute
             Import, Seo, Link component, pre-configured with Husky{' '}
           </p>
